@@ -15,6 +15,17 @@
 
     <script src="//unpkg.com/alpinejs" defer></script>
     <script type="module" src="/src/main.ts"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GF6K11067Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-GF6K11067Q');
+    </script>
+
   </head>
   <body class="bg-shark-950 text-shark-100">
     <style>
@@ -131,8 +142,8 @@
     </div>
 
     <script>
-      const baseUrl = 'https://lb-embed-content.bokonon.dev';
-      // const baseUrl = 'http://127.0.0.1:8787';
+      // const baseUrl = 'https://lb-embed-content.bokonon.dev';
+      const baseUrl = 'http://127.0.0.1:8787';
 
       function data() {
         return {
