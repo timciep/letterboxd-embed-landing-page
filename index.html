@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Letterboxd Diary Embed</title>
+
+    <meta name="description" content="Embed your Letterboxd diary on your website.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body class="bg-shark-950 text-shark-100">
+    <style>
+      .letterboxd-embed-tc-more {
+        color: blue;
+        text-decoration: underline;
+      }
+    </style>
+
+    <div class="text-center my-8 mx-2">
+      <h1 class="text-3xl md:text-4xl font-bol">
+        <span class="">Letterboxd</span>
+        Diary Embed
+      </h1>
+
+      <p class="text-lg text-shark-200 mt-2">
+        Embed your
+        <a href="https://letterboxd.com" target="_blank" class="text-apple-400 hover:text-apple-200">
+          Letterboxd
+        </a>
+        diary on your&nbsp;website.
+      </p>
+
+      <p class="text-xs text-shark-300 mt-3">
+        (Created by a fan. Not officially affiliated with Letterboxd.)
+      </p>
+    </div>
+
+    <div class="my-3 mx-5 text-center" x-data="data">
+      <div class="">
+        <label for="username">Enter your username:</label>
+      </div>
+      
+      <div class="mt-2">
+        <input 
+          x-model="username"
+          @keyup.enter="submit"
+          @input="snippet = ''"
+          id="username" 
+          type="text" 
+          class="rounded text-lg p-2 w-full max-w-sm text-center text-shark-900 bg-shark-100"
+        >
+      </div>
+
+      <div class="mt-2">
+        <button 
+          @click="submit()"
+          id="submit" 
+          class="rounded bg-orange-800 hover:bg-orange-900 text-shark-100 p-2 w-full max-w-xs"
+        >
+          Generate embed code
+        </button>
+      </div>
+
+      <div class="max-w-screen-lg mx-auto"
+        x-show="snippet"
+        x-cloak
+      >
+        <div class="my-8">
+          <hr class="border-shark-800">
+        </div>
+
+        <div class="flex w-full justify-between gap-5 flex-col md:flex-row">
+          <div class="basis-6/12">
+            <div class="text-center mx-auto">
+              Preview:
+            </div>
+  
+            <div class="mt-2 py-5 px-2 bg-white rounded text-black">
+              <div x-show="previewHtml" x-html="previewHtml"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="max-w-sm mx-auto text-center">
+              <label for="code">
+                Paste the snippet below into your website, where you want your diary to appear:
+              </label>
+            </div>
+    
+            <div class="mt-2">
+              <textarea 
+                @click="$event.target.select()"
+                id="code" 
+                class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-40"
+                rows="5"
+                x-model="snippet"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-12 mx-2 text-shark-300 text-sm">
+      <div class="flex gap-5 justify-center items-center">
+        <div>
+          Created by
+          <a 
+            href="https://www.timcieplowski.com/" target="blank"
+            class="text-blue-300 hover:text-blue-200"
+          >
+            Tim Cieplowski
+          </a>
+        </div>
+
+        <div>
+          <a class="bg-blue-300 hover:bg-blue-200 rounded p-2 text-blue-800"
+            target="_blank"
+            href="https://www.buymeacoffee.com/timciep"
+          >☕ Buy me a coffee</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const baseUrl = 'https://lb-embed-content.bokonon.dev';
+      // const baseUrl = 'http://127.0.0.1:8787';
+
+      function data() {
+        return {
+          username: '',
+          snippet: '',
+          previewHtml: '',
+
+          submit() {
+            this.previewHtml = '';
+            this.snippet = getSnippet(this.username);
+
+            fetch(`${baseUrl}?username=${this.username}`)
+              .then(response => response.text())
+              .then(data => {
+                this.previewHtml = data;
+              });
+          }
+        }
+      }
+
+      function getSnippet(username) {
+        return `<div id="letterboxd-embed-wrapper-tc"></div>
+\<script\>
+fetch('${baseUrl}?username=${username}')
+.then(response => response.text())
+.then(data => {
+document.getElementById('letterboxd-embed-wrapper-tc').innerHTML = data;
+});
+\<\/script\>`;
+      }
+    </script>
+  </body>
+</html>
