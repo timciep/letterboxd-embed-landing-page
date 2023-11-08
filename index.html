@@ -25,8 +25,8 @@
 
       gtag('config', 'G-GF6K11067Q');
     </script>
-
   </head>
+
   <body class="bg-shark-950 text-shark-100">
     <style>
       .letterboxd-embed-tc-more {
@@ -35,7 +35,7 @@
       }
     </style>
 
-    <div class="text-center my-8 mx-2">
+    <div class="text-center mt-8 mb-6 mx-2">
       <h1 class="text-3xl md:text-4xl font-bol">
         <span class="">Letterboxd</span>
         Diary Embed
@@ -54,7 +54,7 @@
       </p>
     </div>
 
-    <div class="my-3 mx-5 text-center" x-data="data">
+    <div class="mx-5 text-center" x-data="data">
       <div class="">
         <label for="lb-un">Enter your username:</label>
       </div>
@@ -70,7 +70,7 @@
         >
       </div>
 
-      <div class="mt-2">
+      <div class="mt-3">
         <button 
           @click="submit()"
           id="submit" 
@@ -89,16 +89,6 @@
         </div>
 
         <div class="flex w-full justify-between gap-5 flex-col md:flex-row">
-          <div class="basis-6/12">
-            <div class="text-center mx-auto">
-              Preview:
-            </div>
-  
-            <div class="mt-2 py-5 px-2 bg-white rounded text-black">
-              <div x-show="previewHtml" x-html="previewHtml"></div>
-            </div>
-          </div>
-
           <div>
             <div class="max-w-sm mx-auto text-center">
               <label for="code">
@@ -106,14 +96,24 @@
               </label>
             </div>
     
-            <div class="mt-2">
+            <div class="mt-3">
               <textarea 
                 @click="$event.target.select()"
                 id="code" 
-                class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-40"
+                class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-44"
                 rows="5"
                 x-model="snippet"
               ></textarea>
+            </div>
+          </div>
+
+          <div class="basis-6/12">
+            <div class="text-center mx-auto text-lg">
+              Preview:
+            </div>
+  
+            <div class="mt-3 py-5 px-2 bg-white rounded text-black">
+              <div x-show="previewHtml" x-html="previewHtml"></div>
             </div>
           </div>
         </div>

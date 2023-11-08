@@ -7,3 +7,7 @@ body {
 }
 
 [x-cloak] { display: none !important; }
+
+.letterboxd-embed-tc-more a {
+  color: #486172 !important;
+}
