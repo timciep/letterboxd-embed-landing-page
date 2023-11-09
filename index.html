@@ -159,6 +159,11 @@
           previewHtml: '',
 
           submit() {
+            if ( ! this.username) {
+              alert('Please enter a username.');
+              return;
+            }
+
             this.previewHtml = '';
             this.snippet = getSnippet(this.username);
 
