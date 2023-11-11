@@ -113,6 +113,10 @@
             </div>
   
             <div class="mt-3 py-5 px-2 bg-white rounded text-black">
+              <div x-show="previewHtmlLoading" class="text-center italic">
+                Loading...
+              </div>
+
               <div x-show="previewHtml" x-html="previewHtml"></div>
             </div>
           </div>
@@ -157,6 +161,7 @@
           username: '',
           snippet: '',
           previewHtml: '',
+          previewHtmlLoading: false,
 
           submit() {
             if ( ! this.username) {
@@ -164,6 +169,7 @@
               return;
             }
 
+            this.previewHtmlLoading = true;
             this.previewHtml = '';
             this.snippet = getSnippet(this.username);
 
@@ -171,13 +177,17 @@
               .then(response => response.text())
               .then(data => {
                 this.previewHtml = data;
-              });
+                this.previewHtmlLoading = false;
+              }).catch(error => {
+                this.previewHtml = 'Error loading preview.';
+                this.previewHtmlLoading = false;
+              })
           }
         }
       }
 
       function getSnippet(username) {
-        return `<div id="letterboxd-embed-wrapper-tc"></div>
+        return `<div id="letterboxd-embed-wrapper-tc">Loading...</div>
 \<script\>
 fetch('${baseUrl}?username=${username}')
 .then(response => response.text())
