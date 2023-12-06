@@ -11,7 +11,11 @@ User interface for generating Letterboxd diary embed code, with backend powered 
 
 ## Develop
 
-Built with Vite.
+Built with,
+
+* Vite
+* TailwindCSS
+* Alpine.js
 
 Run locally:
 
