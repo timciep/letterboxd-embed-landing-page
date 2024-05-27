@@ -27,7 +27,7 @@
     </script>
   </head>
 
-  <body class="bg-shark-950 text-shark-100">
+  <body class="bg-shark-950 text-shark-100 min-h-screen flex flex-col justify-between">
     <style>
       .letterboxd-embed-tc-more {
         color: blue;
@@ -39,93 +39,95 @@
       [2024-04-12] This service has been unintentionally blocked by Letterboxd. I am working with them to restore access.
     </div> -->
 
-    <div class="text-center mt-8 mb-6 mx-2">
-      <h1 class="text-3xl md:text-4xl font-bol">
-        <span class="">Letterboxd</span>
-        Diary Embed
-      </h1>
+    <div>
+      <div class="text-center my-8 mx-2">
+        <h1 class="text-3xl md:text-4xl font-bol">
+          <span class="">Letterboxd</span>
+          Diary Embed
+        </h1>
 
-      <p class="text-lg text-shark-200 mt-2">
-        Embed your
-        <a href="https://letterboxd.com" target="_blank" class="text-apple-400 hover:text-apple-200">
-          Letterboxd
-        </a>
-        diary on your&nbsp;website.
-      </p>
+        <p class="text-lg text-shark-200 mt-2">
+          Embed your
+          <a href="https://letterboxd.com" target="_blank" class="text-apple-400 hover:text-apple-200">
+            Letterboxd
+          </a>
+          diary on your&nbsp;website.
+        </p>
 
-      <p class="text-xs text-shark-300 mt-3">
-        (Created by a fan. Not officially affiliated with Letterboxd.)
-      </p>
-    </div>
-
-    <div class="mx-5 text-center" x-data="data">
-      <div class="">
-        <label for="lb-un">Enter your username:</label>
-      </div>
-      
-      <div class="mt-2">
-        <input 
-          x-model="username"
-          @keyup.enter="submit"
-          @input="snippet = ''"
-          id="lb-un" 
-          type="text" 
-          class="rounded text-lg p-2 w-full max-w-sm text-center text-shark-900 bg-shark-100"
-        >
+        <p class="text-xs text-shark-300 mt-3">
+          (Created by a fan. Not officially affiliated with Letterboxd.)
+        </p>
       </div>
 
-      <div class="mt-3">
-        <button 
-          @click="submit()"
-          id="submit" 
-          class="rounded bg-orange-800 hover:bg-orange-900 text-shark-100 p-2 w-full max-w-xs"
-        >
-          Generate embed code
-        </button>
-      </div>
-
-      <div class="max-w-screen-lg mx-auto"
-        x-show="snippet"
-        x-cloak
-      >
-        <div class="my-8">
-          <hr class="border-shark-800">
+      <div class="mx-5 text-center" x-data="data">
+        <div class="">
+          <label for="lb-un">Enter your username:</label>
+        </div>
+        
+        <div class="mt-2">
+          <input 
+            x-model="username"
+            @keyup.enter="submit"
+            @input="snippet = ''"
+            id="lb-un" 
+            type="text" 
+            class="rounded text-lg p-2 w-full max-w-sm text-center text-shark-900 bg-shark-100"
+          >
         </div>
 
-        <div class="flex w-full justify-between gap-5 flex-col md:flex-row">
-          <div>
-            <div class="max-w-sm mx-auto text-center">
-              <label for="code">
-                Paste the snippet below into your website, where you want your diary to appear:
-              </label>
-            </div>
-    
-            <div class="mt-3">
-              <textarea 
-                @click="$event.target.select()"
-                id="code" 
-                class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-44"
-                rows="5"
-                x-model="snippet"
-              ></textarea>
-            </div>
+        <div class="mt-3">
+          <button 
+            @click="submit()"
+            id="submit" 
+            class="rounded bg-orange-800 hover:bg-orange-900 text-shark-100 p-2 w-full max-w-xs"
+          >
+            Generate embed code
+          </button>
+        </div>
 
-            <div class="mt-4 text-sm text-shark-300">
-              Note: Embed may take up to 1 hour to update after you add a new diary entry.
-            </div>
+        <div class="max-w-screen-lg mx-auto"
+          x-show="snippet"
+          x-cloak
+        >
+          <div class="my-8">
+            <hr class="border-shark-800">
           </div>
 
-          <div class="basis-6/12">
-            <div class="text-center mx-auto text-lg">
-              Preview:
-            </div>
-  
-            <div class="mt-3 py-5 px-2 bg-white rounded text-black">
-              <div x-show="previewHtmlLoading" class="text-center italic">
-                Loading...
+          <div class="flex w-full justify-between gap-5 flex-col md:flex-row">
+            <div>
+              <div class="max-w-sm mx-auto text-center">
+                <label for="code">
+                  Paste the snippet below into your website, where you want your diary to appear:
+                </label>
+              </div>
+      
+              <div class="mt-3">
+                <textarea 
+                  @click="$event.target.select()"
+                  id="code" 
+                  class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-44"
+                  rows="5"
+                  x-model="snippet"
+                ></textarea>
               </div>
 
-              <div x-show="previewHtml" x-html="previewHtml"></div>
+              <div class="mt-4 text-sm text-shark-300">
+                Note: Embed may take up to 1 hour to update after you add a new diary entry.
+              </div>
+            </div>
+
+            <div class="basis-6/12">
+              <div class="text-center mx-auto text-lg">
+                Preview:
+              </div>
+    
+              <div class="mt-3 py-5 px-2 bg-white rounded text-black">
+                <div x-show="previewHtmlLoading" class="text-center italic">
+                  Loading...
+                </div>
+
+                <div x-show="previewHtml" x-html="previewHtml"></div>
+              </div>
             </div>
           </div>
         </div>
