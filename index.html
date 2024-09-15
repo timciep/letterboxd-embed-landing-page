@@ -40,7 +40,7 @@
     </div> -->
 
     <div>
-      <div class="text-center my-8 mx-2">
+      <div class="text-center mt-8 mb-10 mx-2">
         <h1 class="text-3xl md:text-4xl font-bol">
           <span class="">Letterboxd</span>
           Diary Embed
@@ -60,11 +60,16 @@
       </div>
 
       <div class="mx-5 text-center" x-data="data">
-        <div class="">
-          <label for="lb-un">Enter your username:</label>
+        <div class="text-shark-100">
+          <label for="lb-un">
+            Enter your
+            <span class="font-black text-white">username</span>
+            or
+            <span class="font-black text-white">profile URL</span>:
+          </label>
         </div>
         
-        <div class="mt-2">
+        <div class="mt-3">
           <input 
             x-model="username"
             @keyup.enter="submit"
@@ -75,7 +80,7 @@
           >
         </div>
 
-        <div class="mt-3">
+        <div class="mt-4">
           <button 
             @click="submit()"
             id="submit" 
@@ -188,11 +193,13 @@
               return;
             }
 
+            const username = getUsername(this.username);
+
             this.previewHtmlLoading = true;
             this.previewHtml = '';
-            this.snippet = getSnippet(this.username);
+            this.snippet = getSnippet(username);
 
-            fetch(`${baseUrl}?username=${this.username}`)
+            fetch(`${baseUrl}?username=${username}`)
               .then(response => response.text())
               .then(data => {
                 this.previewHtml = data;
@@ -203,6 +210,23 @@
               })
           }
         }
+      }
+
+      // If URL is given, extract the last part as the username.
+      function getUsername(username) {
+        // If username is a URL...
+        if (username.includes('http')) {
+          // Remove trailing slash.
+          if (username.endsWith('/')) {
+            username = username.slice(0, -1);
+          }
+
+          // Extract the last part of the URL.
+          const url = new URL(username);
+          return url.pathname.split('/').pop();
+        }
+
+        return username;
       }
 
       function getSnippet(username) {
