@@ -22,3 +22,7 @@ Run locally:
 ```
 npm run dev
 ```
+
+---
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P3QXEV3)
