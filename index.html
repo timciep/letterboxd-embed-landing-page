@@ -110,9 +110,25 @@
                 <textarea 
                   @click="$event.target.select()"
                   id="code" 
-                  class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-44"
+                  class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-44 font-mono"
                   rows="5"
                   x-model="snippet"
+                ></textarea>
+              </div>
+
+              <div class="max-w-sm mx-auto text-center mt-3 text-sm">
+                <label for="code">
+                  Or, if you run into content security policy issues (stuck on "loading..."), try this iframe snippet instead:
+                </label>
+              </div>
+      
+              <div class="mt-2">
+                <textarea 
+                  @click="$event.target.select()"
+                  id="code" 
+                  class="rounded text-xs p-2 w-full text-left text-shark-900 bg-shark-100 h-24 font-mono"
+                  rows="5"
+                  x-model="iframeSnippet"
                 ></textarea>
               </div>
 
@@ -184,6 +200,7 @@
         return {
           username: '',
           snippet: '',
+          iframeSnippet: '',
           previewHtml: '',
           previewHtmlLoading: false,
 
@@ -198,6 +215,7 @@
             this.previewHtmlLoading = true;
             this.previewHtml = '';
             this.snippet = getSnippet(username);
+            this.iframeSnippet = getIframeSnippet(username);
 
             fetch(`${baseUrl}?username=${username}`)
               .then(response => response.text())
@@ -238,6 +256,13 @@ fetch('${baseUrl}?username=${username}')
 document.getElementById('letterboxd-embed-wrapper-tc').innerHTML = data;
 });
 \<\/script\>`;
+      }
+
+      function getIframeSnippet(username) {
+        return `<iframe title="Letterboxd Diary" width="100%" height="800"
+style="border: 0;background: white;border-radius: .5rem;"
+src="https://lb-embed-content.bokonon.dev?username=${username}">
+</iframe>`;
       }
     </script>
   </body>
